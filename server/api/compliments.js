@@ -18,7 +18,10 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   const to = req.body.to
   const from = TWILIO_PHONE_NUMBER
-  const body = `${req.body.sender} says: ${req.body.receiver} is ${req.body.compliment}.`
+  let body
+  if(req.body.receiver !== 'You'){
+    body = `${req.body.sender} says: ${req.body.receiver} is ${req.body.compliment}.`
+  } else body = `${req.body.receiver} are ${req.body.compliment}.`
   try {
     await client.messages.create({ body, from, to})
     res.send('sent!')

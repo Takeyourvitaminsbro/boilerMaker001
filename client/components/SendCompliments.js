@@ -12,21 +12,23 @@ const SendCompliments = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(sendCompliment({
+    const comp = {
       to: toNumber,
       compliment: yourCompliment,
       sender: yourName,
       receiver: toName
-    }))
-    setToNumber('')
-    setToName('')
-    setYourName('')
-    setYourCompliment('')
+    }
+    dispatch(sendCompliment(comp))
+    document.getElementById("compliments-form").reset()
+    window.location.reload()
   }
 
   return (
     <div>
       Send a Compliment!:
+      <p id="trial">Since I have a trial Twilio account, it will only work if you send the compliments to my phone number, +18059159336. You will know it worked if it shows up in the most recent compliments.
+      The compliment will display as: "YourName" says: "PersonToCompliment" is "YourCompliment".
+      Unless you type "You" in "PersonToCompliment," then it will display as: You are "yourCompliment."</p>
       <form id="compliments-form" onSubmit={handleSubmit}>
           <label htmlFor="toNumber">Number to compliment:</label>
           <input
